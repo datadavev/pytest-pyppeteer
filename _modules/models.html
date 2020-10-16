@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>models &mdash; pytest-pyppeteer latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> pytest-pyppeteer
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytest-pyppeteer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for models</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">validator</span>
+<span class="kn">from</span> <span class="nn">pyppeteer.browser</span> <span class="kn">import</span> <span class="n">Browser</span> <span class="k">as</span> <span class="n">PyppeteerBrowser</span>
+<span class="kn">from</span> <span class="nn">pyppeteer.errors</span> <span class="kn">import</span> <span class="n">ElementHandleError</span><span class="p">,</span> <span class="ne">TimeoutError</span>
+<span class="kn">from</span> <span class="nn">pyppeteer.page</span> <span class="kn">import</span> <span class="n">Page</span> <span class="k">as</span> <span class="n">PyppeteerPage</span>
+
+<span class="kn">from</span> <span class="nn">pytest_pyppeteer.errors</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ElementNotExistError</span><span class="p">,</span>
+    <span class="n">ElementTimeoutError</span><span class="p">,</span>
+    <span class="n">PathNotAExecutableError</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pytest_pyppeteer.utils</span> <span class="kn">import</span> <span class="n">parse_locator</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pyppeteer.element_handle</span> <span class="kn">import</span> <span class="n">ElementHandle</span>
+
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ViewPort"><a class="viewcode-back" href="../models.html#models.ViewPort">[docs]</a><span class="k">class</span> <span class="nc">ViewPort</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Keep the consistency of each page&#39;s viewport in a browser instance.</span>
+
+<span class="sd">    One of the most important use is as the standard setting model for</span>
+<span class="sd">    :py:class:`Options.defaultViewport`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: Page width in pixels. Defaults to ``800``.</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">800</span>
+
+    <span class="c1">#: Page height in pixels. Defaults to ``600``.</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">600</span>
+
+    <span class="c1">#: Specify device scale factor (can be thought of as dpr).</span>
+    <span class="c1">#: Defaults to ``1.0``.</span>
+    <span class="n">deviceScaleFactor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="c1">#: Whether the ``meta viewport`` tag is taken into account.</span>
+    <span class="c1">#: Defaults to ``False``.</span>
+    <span class="n">isMobile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1">#: Specifies if viewport supports touch events. Defaults to ``False``.</span>
+    <span class="n">hasTouch</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1">#: Specifies if viewport is in landscape mode. Defaults to ``False``.</span>
+    <span class="n">isLandscape</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Options"><a class="viewcode-back" href="../models.html#models.Options">[docs]</a><span class="k">class</span> <span class="nc">Options</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The standard setting model for pyppeteer launcher.&quot;&quot;&quot;</span>
+
+    <span class="c1">#: Additional arguments to pass to the browser instance. The list</span>
+    <span class="c1">#: of Chromium flags can be found</span>
+    <span class="c1">#: `here &lt;https://peter.sh/experiments/chromium-command-line-switches/&gt;`_.</span>
+    <span class="c1">#: Defaults to ``list()``.</span>
+    <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="c1">#: Automatically close browser process when script completed.</span>
+    <span class="c1">#: Defaults to ``True``.</span>
+    <span class="n">autoClose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1">#: Set a consistent viewport for each page. Defaults to a default</span>
+    <span class="c1">#: :py:class:`ViewPort` instance. ``None`` means disables the</span>
+    <span class="c1">#: default viewport.</span>
+    <span class="n">defaultViewport</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;ViewPort&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ViewPort</span><span class="p">()</span>
+
+    <span class="c1">#: Whether to auto-open a DevTools panel for each tab. If this</span>
+    <span class="c1">#: option is ``True``, the ``headless`` option will be set ``False``.</span>
+    <span class="c1">#: Defaults to ``False``.</span>
+    <span class="n">devtools</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1">#: Whether to pipe the browser process stdout and stderr into</span>
+    <span class="c1">#: ``process.stdout`` and ``process.stderr``. Defaults to ``False``.</span>
+    <span class="n">dumpio</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1">#: Specify environment variables that will be visible to the</span>
+    <span class="c1">#: browser. ``None`` means that same as python process.</span>
+    <span class="c1">#: Defaults to ``None``.</span>
+    <span class="n">env</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: Path to a Chromium or Chrome executable. ``None`` means use the</span>
+    <span class="c1">#: default bundled Chromium. Defaults to ``None``.</span>
+    <span class="n">executablePath</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: Close the browser process on `Ctrl-C`. Defaults to ``True``.</span>
+    <span class="n">handleSIGINT</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1">#: Close the browser process on `SIGTERM`. Defaults to ``True``.</span>
+    <span class="n">handleSIGTERM</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1">#: Close the browser process on `SIGHUP`. Defaults to ``True``.</span>
+    <span class="n">handleSIGHUP</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1">#: Whether to run browser in headless mode. Defaults to ``False``.</span>
+    <span class="n">headless</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1">#: Whether to ignore HTTPS errors. Defaults to ``True``.</span>
+    <span class="n">ignoreHTTPSErrors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1">#: If ``True``, then do not use pyppeteer&#39;s default args. If a</span>
+    <span class="c1">#: list is given, then filter out the given default args.</span>
+    <span class="c1">#: Dangerous option; use with care. Defaults to ``False``.</span>
+    <span class="n">ignoreDefaultArgs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1">#: Log level to print logs. ``None`` means that same as the root logger.</span>
+    <span class="c1">#: Defaults to ``None``.</span>
+    <span class="n">logLevel</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: Slow down operations by the specified amount of milliseconds.</span>
+    <span class="c1">#: useful so that you can see what is going on. Defaults to ``0.0``.</span>
+    <span class="n">slowMo</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1">#: Path to a</span>
+    <span class="c1">#: `User Data Directory &lt;https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md&gt;`_.</span>
+    <span class="c1">#: Defaults to ``None``.</span>
+    <span class="n">userDataDir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Options.Config"><a class="viewcode-back" href="../models.html#models.Options.Config">[docs]</a>    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Control the behaviours of pydantic model.&quot;&quot;&quot;</span>
+
+        <span class="c1">#: whether to allow arbitrary user types for fields (they are</span>
+        <span class="c1">#: validated simply by checking if the value is an instance</span>
+        <span class="c1">#: of the type). If False, RuntimeError will be raised on model</span>
+        <span class="c1">#: declaration.</span>
+        <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Options.validate_executable_path"><a class="viewcode-back" href="../models.html#models.Options.validate_executable_path">[docs]</a>    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;executablePath&quot;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">validate_executable_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Validate that the specified ``executablePath`` must point</span>
+<span class="sd">        to an executable.</span>
+
+<span class="sd">        :param str path: path string.</span>
+<span class="sd">        :return: path string.</span>
+<span class="sd">        :raise PathNotAExecutableError: if path does not point to a</span>
+<span class="sd">               executable file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">X_OK</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="n">PathNotAExecutableError</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">path</span></div></div>
+
+
+<div class="viewcode-block" id="Browser"><a class="viewcode-back" href="../models.html#models.Browser">[docs]</a><span class="k">class</span> <span class="nc">Browser</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="c1">#: a pyppeteer browser object.</span>
+    <span class="n">pyppeteer_browser</span><span class="p">:</span> <span class="s2">&quot;PyppeteerBrowser&quot;</span>
+
+<div class="viewcode-block" id="Browser.Config"><a class="viewcode-back" href="../models.html#models.Browser.Config">[docs]</a>    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Control the behaviours of pydantic model.&quot;&quot;&quot;</span>
+
+        <span class="c1">#: whether to allow arbitrary user types for fields (they are</span>
+        <span class="c1">#: validated simply by checking if the value is an instance</span>
+        <span class="c1">#: of the type). If False, RuntimeError will be raised on model</span>
+        <span class="c1">#: declaration.</span>
+        <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_browser</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Browser.new_page"><a class="viewcode-back" href="../models.html#models.Browser.new_page">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">new_page</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Page&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Make new page on this browser and return its object.</span>
+
+<span class="sd">        :return: a :py:class:`Page` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pyppeteer_page</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_browser</span><span class="o">.</span><span class="n">newPage</span><span class="p">()</span>
+        <span class="c1"># Make sure page and browser size as same.</span>
+        <span class="n">dimensions</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+            <span class="sd">&quot;&quot;&quot;() =&gt; {</span>
+<span class="sd">            return {</span>
+<span class="sd">                width: window.outerWidth,</span>
+<span class="sd">                height: window.outerHeight,</span>
+<span class="sd">                deviceScaleFactor: window.devicePixelRatio,</span>
+<span class="sd">            }</span>
+<span class="sd">        }&quot;&quot;&quot;</span>
+        <span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Resize page viewport to &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dimensions</span><span class="p">))</span>
+        <span class="k">await</span> <span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">setViewport</span><span class="p">(</span><span class="n">dimensions</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Page</span><span class="p">(</span><span class="n">pyppeteer_page</span><span class="o">=</span><span class="n">pyppeteer_page</span><span class="p">)</span></div></div>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">_clickable</span><span class="p">(</span><span class="n">element</span><span class="p">:</span> <span class="s2">&quot;ElementHandle&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">element</span><span class="o">.</span><span class="n">_clickablePoint</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">ElementHandleError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Element not clickable. waiting... and try again.&quot;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">break</span>
+
+
+<div class="viewcode-block" id="Page"><a class="viewcode-back" href="../models.html#models.Page">[docs]</a><span class="k">class</span> <span class="nc">Page</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="c1">#: a pyppeteer page object.</span>
+    <span class="n">pyppeteer_page</span><span class="p">:</span> <span class="s2">&quot;PyppeteerPage&quot;</span>
+
+<div class="viewcode-block" id="Page.Config"><a class="viewcode-back" href="../models.html#models.Page.Config">[docs]</a>    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Control the behaviours of pydantic model.&quot;&quot;&quot;</span>
+
+        <span class="c1">#: whether to allow arbitrary user types for fields (they are</span>
+        <span class="c1">#: validated simply by checking if the value is an instance</span>
+        <span class="c1">#: of the type). If False, RuntimeError will be raised on model</span>
+        <span class="c1">#: declaration.</span>
+        <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_page</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Page.query_locator"><a class="viewcode-back" href="../models.html#models.Page.query_locator">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">query_locator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;ElementHandle&quot;</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Get the element which match ``locator``.</span>
+
+<span class="sd">        If no element matches the ``locator``, return ``None``.</span>
+
+<span class="sd">        :param str locator: a selector or xpath string</span>
+<span class="sd">        :return: an element handle or ``None``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_type</span><span class="p">,</span> <span class="n">locator_string</span> <span class="o">=</span> <span class="n">parse_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_type</span> <span class="o">==</span> <span class="s2">&quot;css&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">querySelector</span><span class="p">(</span><span class="n">locator_string</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_type</span> <span class="o">==</span> <span class="s2">&quot;xpath&quot;</span><span class="p">:</span>
+            <span class="n">element_list</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">locator_string</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">element_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">element_list</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Page.waitfor"><a class="viewcode-back" href="../models.html#models.Page.waitfor">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">waitfor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">locator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">hidden</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30000</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Wait until element which matches ``locator``.</span>
+
+<span class="sd">        :param str locator: a selector or xpath string.</span>
+<span class="sd">        :param bool visible: Wait for element to be present in DOM and to be</span>
+<span class="sd">               visible; i.e. to not have ``display: none`` or ``visibility: hidden``</span>
+<span class="sd">               CSS properties. Defaults to ``True``.</span>
+<span class="sd">        :param bool hidden: Wait for element to not be found in the DOM or to</span>
+<span class="sd">               be hidden, i.e. have ``display: none`` or ``visibility: hidden`` CSS</span>
+<span class="sd">               properties. Defaults to ``False``.</span>
+<span class="sd">        :param int timeout: Maximum time to wait for in milliseconds.</span>
+<span class="sd">               Defaults to 30000 (30 seconds). Pass ``0`` to disable timeout.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :raise ElementTimeoutError: Timeout exceeded while wait for ``locator``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_type</span><span class="p">,</span> <span class="n">locator_string</span> <span class="o">=</span> <span class="n">parse_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="n">visible</span><span class="p">,</span> <span class="s2">&quot;hidden&quot;</span><span class="p">:</span> <span class="n">hidden</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="n">timeout</span><span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">_type</span> <span class="o">==</span> <span class="s2">&quot;css&quot;</span><span class="p">:</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">waitForSelector</span><span class="p">(</span>
+                    <span class="n">locator_string</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">_type</span> <span class="o">==</span> <span class="s2">&quot;xpath&quot;</span><span class="p">:</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">waitForXPath</span><span class="p">(</span><span class="n">locator_string</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TimeoutError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;disappear&quot;</span> <span class="k">if</span> <span class="n">hidden</span> <span class="k">else</span> <span class="s2">&quot;appear&quot;</span>
+            <span class="k">raise</span> <span class="n">ElementTimeoutError</span><span class="p">(</span>
+                <span class="n">locator</span><span class="o">=</span><span class="n">locator</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">action</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span></div>
+
+<div class="viewcode-block" id="Page.type"><a class="viewcode-back" href="../models.html#models.Page.type">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Focus the element which matches ``locator`` and then</span>
+<span class="sd">        type text.</span>
+
+<span class="sd">        :param locator: a selector or xpath string.</span>
+<span class="sd">        :param text: what you want to type into.</span>
+<span class="sd">        :param int delay: specifies time to wait between key presses</span>
+<span class="sd">               in milliseconds. Defaults to 0.</span>
+<span class="sd">        :param bool clear: whether to clear existing content befor</span>
+<span class="sd">               typing. Defaults to ``False``.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">element</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ElementNotExistError</span><span class="p">(</span><span class="n">locator</span><span class="o">=</span><span class="n">locator</span><span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Type text(&quot;</span><span class="si">{}</span><span class="s1">&quot;) into element(&quot;</span><span class="si">{}</span><span class="s1">&quot;).&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">locator</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="k">await</span> <span class="n">element</span><span class="o">.</span><span class="n">executionContext</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+                <span class="s2">&quot;(node =&gt; node.value || node.innerText)&quot;</span><span class="p">,</span> <span class="n">element</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">_clickable</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+                <span class="k">await</span> <span class="n">element</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">&quot;ArrowRight&quot;</span><span class="p">)</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">down</span><span class="p">(</span><span class="s2">&quot;Shift&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">&quot;ArrowLeft&quot;</span><span class="p">)</span>
+                    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">up</span><span class="p">(</span><span class="s2">&quot;Shift&quot;</span><span class="p">)</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pyppeteer_page</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">&quot;Backspace&quot;</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="n">delay</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">element</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Page.click"><a class="viewcode-back" href="../models.html#models.Page.click">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">click</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">locator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">button</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;middle&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span>
+        <span class="n">click_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Click the center of the element which matches ``locator``.</span>
+
+<span class="sd">        :param str locator: a selector or xpath string.</span>
+<span class="sd">        :param Literal[&quot;left&quot;, &quot;middle&quot;, &quot;right&quot;] button: ``left``,</span>
+<span class="sd">               ``right``, of ``middle``. Defaults to ``left``.</span>
+<span class="sd">        :param int click_count: Defaults to 1.</span>
+<span class="sd">        :param int delay: Time to wait between ``mousedown`` and</span>
+<span class="sd">               ``mouseup`` in milliseconds. Defaults to 0.</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        :raise ElementNotExistError: if the element which matches</span>
+<span class="sd">               ``locator`` is not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">element</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ElementNotExistError</span><span class="p">(</span><span class="n">locator</span><span class="o">=</span><span class="n">locator</span><span class="p">)</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Click element(&quot;</span><span class="si">{}</span><span class="s1">&quot;).&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">locator</span><span class="p">))</span>
+        <span class="k">await</span> <span class="n">_clickable</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">element</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">button</span><span class="o">=</span><span class="n">button</span><span class="p">,</span> <span class="n">clickCount</span><span class="o">=</span><span class="n">click_count</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="n">delay</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">element</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Page.get_value"><a class="viewcode-back" href="../models.html#models.Page.get_value">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the element ``value`` or ``innerText`` which matches</span>
+<span class="sd">        ``locator``.</span>
+
+<span class="sd">        :param str locator: a selector or xpath string.</span>
+<span class="sd">        :return: the element ``value`` or ``innerText`` string.</span>
+<span class="sd">        :raise ElementNotExistError: if the element which matches</span>
+<span class="sd">               ``locator`` is not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_locator</span><span class="p">(</span><span class="n">locator</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">element</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ElementNotExistError</span><span class="p">(</span><span class="n">locator</span><span class="o">=</span><span class="n">locator</span><span class="p">)</span>
+        <span class="n">value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="k">await</span> <span class="n">element</span><span class="o">.</span><span class="n">executionContext</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+            <span class="s2">&quot;(node =&gt; node.value || node.innerText)&quot;</span><span class="p">,</span> <span class="n">element</span>
+        <span class="p">)</span>
+        <span class="k">await</span> <span class="n">element</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">value</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Yao Meng
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

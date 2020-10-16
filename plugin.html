@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>plugin module &mdash; pytest-pyppeteer latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utils module" href="utils.html" />
+    <link rel="prev" title="models module" href="models.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> pytest-pyppeteer
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="errors.html">errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hooks.html">hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">models module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">plugin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pytest-pyppeteer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">API Reference</a> &raquo;</li>
+        
+      <li>plugin module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/plugin.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-plugin">
+<span id="plugin-module"></span><h1>plugin module<a class="headerlink" href="#module-plugin" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="plugin.pytest_addhooks">
+<code class="sig-name descname">pytest_addhooks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pluginmanager</span><span class="p">:</span> <span class="n">PytestPluginManager</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="reference internal" href="_modules/plugin.html#pytest_addhooks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.pytest_addhooks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new hooks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pluginmanager</strong> (<em>_pytest.config.PytestPluginManager</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.pytest_configure">
+<code class="sig-name descname">pytest_configure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="reference internal" href="_modules/plugin.html#pytest_configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.pytest_configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform initial configuration as follows:</p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">pytest.mark.option</span></code> marker to the ini-file option.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>_pyest.config.Config</em>) – pytest config object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">hook</span> <span class="pre">function</span></code> which is called for
+every plugin and initial conftest file after command
+line options have been parsed. After that, the hook
+is called for other conftest files as they are imported.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.pytest_collection_modifyitems">
+<code class="sig-name descname">pytest_collection_modifyitems</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Item<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="reference internal" href="_modules/plugin.html#pytest_collection_modifyitems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.pytest_collection_modifyitems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify the items collected by pytest as follows:</p>
+<ul class="simple">
+<li><p>Because all test items using pyppeteer should be an
+asyncio coroutine, here the <a class="reference external" href="https://github.com/pytest-dev/pytest-asyncio#pytestmarkasyncio">pytest.mark.asyncio</a>
+marker is automatically added to each test item
+collected by pytest.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>items</strong> (<em>List</em><em>[</em><em>pytest.Item</em><em>]</em>) – the list of items objects
+collected by pytest.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">hook</span> <span class="pre">function</span></code> which is called
+after collection of all test items is completed.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.add_asyncio_marker">
+<code class="sig-name descname">add_asyncio_marker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n">Item</span></em><span class="sig-paren">)</span> &#x2192; Item<a class="reference internal" href="_modules/plugin.html#add_asyncio_marker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.add_asyncio_marker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add <a class="reference external" href="https://github.com/pytest-dev/pytest-asyncio#pytestmarkasyncio">pytest.mark.asyncio</a> marker to the specified item.</p>
+<p>If the marker is already exists, return the item directly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>pytest.Item</em>) – the pytest item object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the marked item object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.is_coroutine">
+<code class="sig-name descname">is_coroutine</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a><a class="reference internal" href="_modules/plugin.html#is_coroutine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.is_coroutine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check to see if an object is really an asyncio coroutine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<em>Any</em>) – any object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> or <cite>False</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.pytest_runtest_makereport">
+<code class="sig-name descname">pytest_runtest_makereport</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n">Item</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="reference internal" href="_modules/plugin.html#pytest_runtest_makereport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.pytest_runtest_makereport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement this pytest hook in wrapper mode, the added
+behaviors as follows:</p>
+<ul class="simple">
+<li><p>Register a new
+<a class="reference internal" href="hooks.html#hooks.pytest_pyppeteer_runtest_makereport_call_debug" title="hooks.pytest_pyppeteer_runtest_makereport_call_debug"><code class="xref py py-func docutils literal notranslate"><span class="pre">hooks.pytest_pyppeteer_runtest_makereport_call_debug()</span></code></a>
+hook which called when a actual failing test calls not setup/teardown.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>pytest.Item</em>) – the pytest item object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.pytest_addoption">
+<code class="sig-name descname">pytest_addoption</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span><span class="p">:</span> <span class="n">Parser</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="reference internal" href="_modules/plugin.html#pytest_addoption"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.pytest_addoption" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register new command line arguments and ini-file values.</p>
+<p>Create a new command line option group named <cite>pyppeteer</cite>, and add the
+following new options in it:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--executable-path</span></code>: path to a Chromium or Chrome executable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--headless</span></code>: run browser in headless mode.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--args</span></code>: additional args to pass to the browser instance. more
+details refer to <a class="reference internal" href="#plugin.args" title="plugin.args"><code class="xref py py-func docutils literal notranslate"><span class="pre">args()</span></code></a> fixture.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--window-size</span></code>: set the initial browser window size. Defaults
+to 800 * 600. <code class="docutils literal notranslate"><span class="pre">--window-size</span> <span class="pre">0</span> <span class="pre">0</span></code> means to starts the browser
+maximized.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parser</strong> (<em>_pytest.config.argparsing.Parser</em>) – parser for command
+line arguments and ini-file values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">hook</span> <span class="pre">function</span></code> which be called once at the beginning
+of a test run to register argparse-style options and ini-style config values.</p>
+<p>There are two ways to register new options, respectively:</p>
+<ul class="simple">
+<li><p>To register a command line option, call
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">parser.addoption(...)</span></code>.</p></li>
+<li><p>To register an ini-file option, call
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">parser.addini(...)</span></code>.</p></li>
+</ul>
+<p>And the options can later be accessed through the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code> object, respectively:</p>
+<ul class="simple">
+<li><p>To retrieve the value of a command line option, call
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">config.getoption(name)</span></code>.</p></li>
+<li><p>To retrieve a value read from an ini-style file, call
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">config.getini(name)</span></code>.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">Config</span></code> object is passed around on many pytest internal objects via the
+<code class="docutils literal notranslate"><span class="pre">.config</span></code> attribute or can be retrieved as the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">pytestconfig</span></code> fixture.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.executable_path">
+<code class="sig-name descname">executable_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pytestconfig</span><span class="p">:</span> <span class="n">Config</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span><a class="reference internal" href="_modules/plugin.html#executable_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.executable_path" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Session-scoped</span> <span class="pre">fixture</span></code> that return Chrome or Chromium executable path.</p>
+<p>The fixture behaviors follow this procedure:</p>
+<ol class="arabic">
+<li><p>Return the value passed in from command line option of <cite>–executable-path</cite>,
+if it’s not <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p>Return the default installation location of Chrome in current platform,
+but now only support <code class="docutils literal notranslate"><span class="pre">win64</span></code>, <code class="docutils literal notranslate"><span class="pre">win32</span></code> and <code class="docutils literal notranslate"><span class="pre">mac</span></code> platform.</p>
+<p>For other platforms, pyppeteer will downloads the recent version of Chromium
+when called first time. If you don’t prefer this behavior, you can specify
+an exact path by overwrite this fixture:</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">executable_path</span><span class="p">(</span><span class="n">executable_path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">executable_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;path/to/Chrome/or/Chromium&quot;</span>
+        <span class="k">return</span> <span class="n">executable_path</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pytestconfig</strong> (<em>_pytest.config.Config</em>) – a session-scoped fixture that return
+config object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return Chrome or Chromium executable path string. but if current platform
+isn’t supported, return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.args">
+<code class="sig-name descname">args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pytestconfig</span><span class="p">:</span> <span class="n">Config</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span><a class="reference internal" href="_modules/plugin.html#args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.args" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Session-scoped</span> <span class="pre">fixture</span></code> that return a list of additional
+args in the <a class="reference external" href="https://peter.sh/experiments/chromium-command-line-switches/">List of Chromium Command Line Arguments</a> to pass
+to the browser instance.</p>
+<p>You can use it by command-line option:</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pytest --args proxy-server &quot;localhost:5555,direct://&quot; --args proxy-bypass-list &quot;192.0.0.1/8;10.0.0.1/8&quot;
+</pre></div>
+</div>
+<p>Or overwrite it in your test:</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">args</span> <span class="o">+</span> <span class="p">[</span>
+        <span class="s2">&quot;--proxy-server=localhost:5555,direct://&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--proxy-bypass-list=192.0.0.1/8;10.0.0.1/8&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pytestconfig</strong> (<em>_pytest.config.Config</em>) – a session-scoped
+fixture that return config object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of arguments string. return <code class="docutils literal notranslate"><span class="pre">list()</span></code> if no
+<code class="docutils literal notranslate"><span class="pre">--args</span></code> passed in the command-line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.session_options">
+<code class="sig-name descname">session_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pytestconfig</span><span class="p">:</span> <span class="n">Config</span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">executable_path</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em><span class="sig-paren">)</span> &#x2192; Options<a class="reference internal" href="_modules/plugin.html#session_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.session_options" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Session-scoped</span> <span class="pre">fixture</span></code> that return a
+<a class="reference internal" href="models.html#models.Options" title="models.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">models.Options</span></code></a> object used to initialize browser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pytestconfig</strong> (<em>_pytest.config.Config</em>) – a session-scoped
+fixture that return config object.</p></li>
+<li><p><strong>args</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – a session-scoped fixture that return
+a list of additional args to pass to the browser instance.</p></li>
+<li><p><strong>executable_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – a session-scoped fixture that return
+Chrome or Chromium executable path.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a <a class="reference internal" href="models.html#models.Options" title="models.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">models.Options</span></code></a> object used to initialize
+browser.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.options">
+<code class="sig-name descname">options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span><span class="p">:</span> <span class="n">FixtureRequest</span></em>, <em class="sig-param"><span class="n">session_options</span><span class="p">:</span> <span class="n">Options</span></em><span class="sig-paren">)</span> &#x2192; Options<a class="reference internal" href="_modules/plugin.html#options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.options" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Function-scoped</span> <span class="pre">fixture</span></code> that return a
+<a class="reference internal" href="models.html#models.Options" title="models.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">models.Options</span></code></a> object used to initialize browser.</p>
+<p>This fixture contains all of <a class="reference internal" href="#plugin.session_options" title="plugin.session_options"><code class="xref py py-func docutils literal notranslate"><span class="pre">session_options()</span></code></a>, plus
+any options specified by the options markers. Any change to
+these options will apply only to the tests covered by scope
+of the fixture override.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">devtools</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">test_options_mark</span><span class="p">(</span><span class="n">pyppeteer</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>_pytest.fixture.FixtureRequest</em>) – A request
+object gives access to the requesting test context.</p></li>
+<li><p><strong>session_options</strong> (<a class="reference internal" href="models.html#models.Options" title="models.Options"><em>Options</em></a>) – a <a class="reference internal" href="models.html#models.Options" title="models.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">models.Options</span></code></a>
+object from <a class="reference internal" href="#plugin.session_options" title="plugin.session_options"><code class="xref py py-func docutils literal notranslate"><span class="pre">session_options()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a <a class="reference internal" href="models.html#models.Options" title="models.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">models.Options</span></code></a> object used to initialize
+browser.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.get_options_from_markers">
+<code class="sig-name descname">get_options_from_markers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="p">:</span> <span class="n">Item</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a><a class="reference internal" href="_modules/plugin.html#get_options_from_markers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.get_options_from_markers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the options from the <code class="docutils literal notranslate"><span class="pre">options</span></code> markers of test item.
+And there are only apply on the current test item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>Item</em>) – the test item object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an dict contains options.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.pyppeteer_factory">
+<code class="sig-name descname">pyppeteer_factory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">options</span><span class="p">:</span> <span class="n">pytest_pyppeteer.models.Options</span></em><span class="sig-paren">)</span> &#x2192; Callable<a class="reference internal" href="_modules/plugin.html#pyppeteer_factory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.pyppeteer_factory" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Function-scoped</span> <span class="pre">fixture</span></code> that return a pyppeteer
+browser factory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>options</strong> (<a class="reference internal" href="models.html#models.Options" title="models.Options"><em>Options</em></a>) – a <a class="reference internal" href="models.html#models.Options" title="models.Options"><code class="xref py py-class docutils literal notranslate"><span class="pre">models.Options</span></code></a>
+object used to initialize browser</p>
+</dd>
+<dt class="field-even">Yield</dt>
+<dd class="field-even"><p>a pyppeteer browser factory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="plugin.pyppeteer">
+<code class="sig-name descname">pyppeteer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pyppeteer_factory</span><span class="p">:</span> <span class="n">Callable</span></em><span class="sig-paren">)</span> &#x2192; pytest_pyppeteer.models.Browser<a class="reference internal" href="_modules/plugin.html#pyppeteer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plugin.pyppeteer" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Function-scoped</span> <span class="pre">fixture</span></code> that return a pyppeteer
+browser instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pyppeteer_factory</strong> (<em>Callable</em>) – pyppeteer factory</p>
+</dd>
+<dt class="field-even">Yield</dt>
+<dd class="field-even"><p>a pyppeteer browser instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="utils.html" class="btn btn-neutral float-right" title="utils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="models.html" class="btn btn-neutral float-left" title="models module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Yao Meng
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

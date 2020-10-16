@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>errors &mdash; pytest-pyppeteer latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> pytest-pyppeteer
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytest-pyppeteer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>errors</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for errors</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+
+<div class="viewcode-block" id="ErrorMixin"><a class="viewcode-back" href="../errors.html#errors.ErrorMixin">[docs]</a><span class="k">class</span> <span class="nc">ErrorMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The mixin for base exceptions.</span>
+
+<span class="sd">    :param Any ctx: content variables.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: Type identification code.</span>
+    <span class="n">code</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="c1">#: Error message template.</span>
+    <span class="n">msg_template</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="n">ctx</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">msg_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Error"><a class="viewcode-back" href="../errors.html#errors.Error">[docs]</a><span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="n">ErrorMixin</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base-class for all exceptions raised by this plugin.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="PathError"><a class="viewcode-back" href="../errors.html#errors.PathError">[docs]</a><span class="k">class</span> <span class="nc">PathError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The base-class for all path-related exceptions.</span>
+
+<span class="sd">    :param str path: path string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PathError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PathNotAExecutableError"><a class="viewcode-back" href="../errors.html#errors.PathNotAExecutableError">[docs]</a><span class="k">class</span> <span class="nc">PathNotAExecutableError</span><span class="p">(</span><span class="n">PathError</span><span class="p">):</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;file.not_a_executable&quot;</span>
+    <span class="n">msg_template</span> <span class="o">=</span> <span class="s1">&#39;path &quot;</span><span class="si">{path}</span><span class="s1">&quot; does not point to a executable file&#39;</span></div>
+
+
+<div class="viewcode-block" id="LocatorError"><a class="viewcode-back" href="../errors.html#errors.LocatorError">[docs]</a><span class="k">class</span> <span class="nc">LocatorError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The base-class for all locator-related exceptions.</span>
+
+<span class="sd">    :param str path: locatore string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LocatorError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">locator</span><span class="o">=</span><span class="n">locator</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LocatorNotAValidSelectorOrXPathError"><a class="viewcode-back" href="../errors.html#errors.LocatorNotAValidSelectorOrXPathError">[docs]</a><span class="k">class</span> <span class="nc">LocatorNotAValidSelectorOrXPathError</span><span class="p">(</span><span class="n">LocatorError</span><span class="p">):</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;locator.not_a_valid_selector_or_xpath&quot;</span>
+    <span class="n">msg_template</span> <span class="o">=</span> <span class="s1">&#39;locator &quot;</span><span class="si">{locator}</span><span class="s1">&quot; is not a valid selector or xpath string.&#39;</span></div>
+
+
+<div class="viewcode-block" id="ElementError"><a class="viewcode-back" href="../errors.html#errors.ElementError">[docs]</a><span class="k">class</span> <span class="nc">ElementError</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The base-class for all element-related exceptions.</span>
+
+<span class="sd">    :param str locator: element locator string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ElementError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">locator</span><span class="o">=</span><span class="n">locator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ElementNotExistError"><a class="viewcode-back" href="../errors.html#errors.ElementNotExistError">[docs]</a><span class="k">class</span> <span class="nc">ElementNotExistError</span><span class="p">(</span><span class="n">ElementError</span><span class="p">):</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;element.not_exist&quot;</span>
+    <span class="n">msg_template</span> <span class="o">=</span> <span class="s1">&#39;Element &quot;</span><span class="si">{locator}</span><span class="s1">&quot; not exist.&#39;</span></div>
+
+
+<div class="viewcode-block" id="ElementTimeoutError"><a class="viewcode-back" href="../errors.html#errors.ElementTimeoutError">[docs]</a><span class="k">class</span> <span class="nc">ElementTimeoutError</span><span class="p">(</span><span class="n">ElementError</span><span class="p">):</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;element.timeout&quot;</span>
+    <span class="n">msg_template</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;Wait for element &quot;</span><span class="si">{locator}</span><span class="s1">&quot; to </span><span class="si">{action}</span><span class="s1"> failed: timeout </span><span class="si">{timeout}</span><span class="s1">ms exceeds.&#39;</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;appear&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ElementTimeoutError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">locator</span><span class="o">=</span><span class="n">locator</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">action</span>
+        <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Yao Meng
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

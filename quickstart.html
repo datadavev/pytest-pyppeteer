@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quickstart &mdash; pytest-pyppeteer latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> pytest-pyppeteer
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pytest-pyppeteer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Quickstart</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<p>For example, query the rating of the movie <strong>The Shawshank Redemption</strong> on <a class="reference external" href="https://movie.douban.com">douban.com</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Elements</span><span class="p">:</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://movie.douban.com/&quot;</span>
+
+    <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;#inp-query&quot;</span>
+    <span class="n">apply</span> <span class="o">=</span> <span class="s2">&quot;.inp-btn &gt; input:nth-child(1)&quot;</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;#root &gt; div &gt; div &gt; div &gt; div &gt; div:nth-child(1) &gt; div.item-root a.cover-link&quot;</span>
+    <span class="p">)</span>
+    <span class="n">rating</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;#interest_sectl &gt; div.rating_wrap.clearbox &gt; div.rating_self.clearfix &gt; strong&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">test_pyppteer</span><span class="p">(</span><span class="n">pyppeteer</span><span class="p">):</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pyppeteer</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">Elements</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">Elements</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="s2">&quot;The Shawshank Redemption&quot;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">Elements</span><span class="o">.</span><span class="n">apply</span><span class="p">)</span>
+
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">waitfor</span><span class="p">(</span><span class="n">Elements</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">Elements</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">waitfor</span><span class="p">(</span><span class="n">Elements</span><span class="o">.</span><span class="n">rating</span><span class="p">)</span>
+    <span class="n">rating</span> <span class="o">=</span> <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">Elements</span><span class="o">.</span><span class="n">rating</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">rating</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>The test will be failed because of <code class="docutils literal notranslate"><span class="pre">assert</span> <span class="pre">rating</span> <span class="pre">==</span> <span class="pre">0</span></code>, but we successfully got the rating of the movie, it was <code class="docutils literal notranslate"><span class="pre">9.7</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pipenv run pytest -q tests/test_quickstart.py
+F                                                                              <span class="o">[</span><span class="m">100</span>%<span class="o">]</span>
+<span class="o">======================================</span> <span class="nv">FAILURES</span> <span class="o">======================================</span>
+_________________________________ test_options_mark __________________________________
+
+<span class="nv">pyppeteer</span> <span class="o">=</span> Browser<span class="o">(</span><span class="nv">pyppeteer_browser</span><span class="o">=</span>&lt;pyppeteer.browser.Browser object at 0x10917e5e0&gt;<span class="o">)</span>
+
+    async def test_options_mark<span class="o">(</span>pyppeteer<span class="o">)</span>:
+        <span class="nv">page</span> <span class="o">=</span> await pyppeteer.new_page<span class="o">()</span>
+        await page.goto<span class="o">(</span><span class="s2">&quot;https://movie.douban.com&quot;</span><span class="o">)</span>
+
+        await page.type<span class="o">(</span>Elements.query, <span class="s2">&quot;The Shawshank Redemption&quot;</span><span class="o">)</span>
+        await page.click<span class="o">(</span>Elements.apply<span class="o">)</span>
+
+        await page.waitfor<span class="o">(</span>Elements.result<span class="o">)</span>
+        await page.click<span class="o">(</span>Elements.result<span class="o">)</span>
+
+        await page.waitfor<span class="o">(</span>Elements.rating<span class="o">)</span>
+        <span class="nv">rating</span> <span class="o">=</span> await page.get_value<span class="o">(</span>Elements.rating<span class="o">)</span>
+&gt;       assert <span class="nv">rating</span> <span class="o">==</span> <span class="m">0</span>
+E       AssertionError: assert <span class="s1">&#39;9.7&#39;</span> <span class="o">==</span> <span class="m">0</span>
+
+tests/test_quickstart.py:31: <span class="nv">AssertionError</span>
+<span class="o">==================================</span> warnings <span class="nv">summary</span> <span class="o">==================================</span>
+tests/test_quickstart.py::test_options_mark
+tests/test_quickstart.py::test_options_mark
+tests/test_quickstart.py::test_options_mark
+tests/test_quickstart.py::test_options_mark
+tests/test_quickstart.py::test_options_mark
+tests/test_quickstart.py::test_options_mark
+tests/test_quickstart.py::test_options_mark
+  /Users/yaomeng/.local/share/virtualenvs/pytest-pyppeteer-KPzLwmKN/lib/python3.8/site-packages/pyee/_compat.py:35: DeprecationWarning: pyee.EventEmitter is deprecated and will be removed in a future major version<span class="p">;</span> you should instead use either pyee.AsyncIOEventEmitter, pyee.TwistedEventEmitter, pyee.ExecutorEventEmitter, pyee.TrioEventEmitter, or pyee.BaseEventEmitter.
+    warn<span class="o">(</span>DeprecationWarning<span class="o">(</span>
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+<span class="o">==============================</span> short <span class="nb">test</span> summary <span class="nv">info</span> <span class="o">===============================</span>
+FAILED tests/test_quickstart.py::test_options_mark - AssertionError: assert <span class="s1">&#39;9.7&#39;</span> <span class="o">==</span> <span class="m">0</span>
+<span class="m">1</span> failed, <span class="m">7</span> warnings in <span class="m">7</span>.61s
+</pre></div>
+</div>
+<img alt="quickstart" class="align-left" src="_images/quickstart.gif" />
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Yao Meng
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

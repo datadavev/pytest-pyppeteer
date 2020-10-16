@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Advanced Usage &mdash; pytest-pyppeteer latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="modules.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> pytest-pyppeteer
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#control-multiple-browsers-asynchronously">Control multiple browsers asynchronously</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pytest-pyppeteer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Advanced Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/advanced.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="advanced-usage">
+<h1>Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="control-multiple-browsers-asynchronously">
+<h2>Control multiple browsers asynchronously<a class="headerlink" href="#control-multiple-browsers-asynchronously" title="Permalink to this headline">¶</a></h2>
+<p>You can easily to control multiple browsers at the same time.</p>
+<p>For example, query the <strong>The Shawshank Redemption</strong>’s movie
+and book rating on <a class="reference external" href="https://movie.douban.com">douban.com</a>
+at the same time, then compare them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Callable</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Browser</span><span class="p">,</span> <span class="n">Page</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Elements</span><span class="p">:</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;#inp-query&quot;</span>
+    <span class="n">apply</span> <span class="o">=</span> <span class="s2">&quot;.inp-btn &gt; input:nth-child(1)&quot;</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BookElements</span><span class="p">(</span><span class="n">Elements</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://book.douban.com/&quot;</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;(//*[@class=&quot;item-root&quot;])[1]/a&#39;</span>
+    <span class="n">rating</span> <span class="o">=</span> <span class="s2">&quot;#interest_sectl &gt; div &gt; div.rating_self.clearfix &gt; strong&quot;</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MovieElements</span><span class="p">(</span><span class="n">Elements</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://movie.douban.com/&quot;</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;#root &gt; div &gt; div &gt; div &gt; div &gt; div:nth-child(1) &gt; div.item-root a.cover-link&quot;</span>
+    <span class="p">)</span>
+    <span class="n">rating</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;#interest_sectl &gt; div.rating_wrap.clearbox &gt; div.rating_self.clearfix &gt; strong&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">query_rating</span><span class="p">(</span><span class="n">pyppeteer</span><span class="p">:</span> <span class="s2">&quot;Browser&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">elements</span><span class="p">:</span> <span class="s2">&quot;Elements&quot;</span><span class="p">):</span>
+    <span class="n">page</span><span class="p">:</span> <span class="n">Page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pyppeteer</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">elements</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">elements</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">elements</span><span class="o">.</span><span class="n">apply</span><span class="p">)</span>
+
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">waitfor</span><span class="p">(</span><span class="n">elements</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">elements</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">waitfor</span><span class="p">(</span><span class="n">elements</span><span class="o">.</span><span class="n">rating</span><span class="p">)</span>
+    <span class="n">rating</span> <span class="o">=</span> <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">elements</span><span class="o">.</span><span class="n">rating</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rating</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">test_multiple_browsers</span><span class="p">(</span><span class="n">pyppeteer_factory</span><span class="p">:</span> <span class="s2">&quot;Callable&quot;</span><span class="p">):</span>
+    <span class="n">pyppeteer1</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pyppeteer_factory</span><span class="p">()</span>
+    <span class="n">pyppeteer2</span> <span class="o">=</span> <span class="k">await</span> <span class="n">pyppeteer_factory</span><span class="p">()</span>
+
+    <span class="n">movie_rating</span><span class="p">,</span> <span class="n">book_rating</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+        <span class="n">query_rating</span><span class="p">(</span><span class="n">pyppeteer1</span><span class="p">,</span> <span class="s2">&quot;The Shawshank Redemption&quot;</span><span class="p">,</span> <span class="n">MovieElements</span><span class="p">),</span>
+        <span class="n">query_rating</span><span class="p">(</span><span class="n">pyppeteer2</span><span class="p">,</span> <span class="s2">&quot;The Shawshank Redemption&quot;</span><span class="p">,</span> <span class="n">BookElements</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">movie_rating</span> <span class="o">==</span> <span class="n">book_rating</span>
+</pre></div>
+</div>
+<p>Execute this test, and it will be failed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pipenv run pytest -q tests/test_multiple_browsers.py
+F                                                                              <span class="o">[</span><span class="m">100</span>%<span class="o">]</span>
+<span class="o">======================================</span> <span class="nv">FAILURES</span> <span class="o">======================================</span>
+_______________________________ test_multiple_browsers _______________________________
+
+<span class="nv">pyppeteer_factory</span> <span class="o">=</span> &lt;<span class="k">function</span> pyppeteer_factory.&lt;locals&gt;._factory at 0x1068c4700&gt;
+
+    async def test_multiple_browsers<span class="o">(</span>pyppeteer_factory: <span class="s2">&quot;Callable&quot;</span><span class="o">)</span>:
+        <span class="nv">pyppeteer1</span> <span class="o">=</span> await pyppeteer_factory<span class="o">()</span>
+        <span class="nv">pyppeteer2</span> <span class="o">=</span> await pyppeteer_factory<span class="o">()</span>
+
+        movie_rating, <span class="nv">book_rating</span> <span class="o">=</span> await asyncio.gather<span class="o">(</span>
+            query_rating<span class="o">(</span>pyppeteer1, <span class="s2">&quot;The Shawshank Redemption&quot;</span>, MovieElements<span class="o">)</span>,
+            query_rating<span class="o">(</span>pyppeteer2, <span class="s2">&quot;The Shawshank Redemption&quot;</span>, BookElements<span class="o">)</span>,
+        <span class="o">)</span>
+
+&gt;       assert <span class="nv">movie_rating</span> <span class="o">==</span> book_rating
+E       AssertionError: assert <span class="s1">&#39;9.7&#39;</span> <span class="o">==</span> <span class="s1">&#39;9.2&#39;</span>
+E         - <span class="m">9</span>.2
+E         + <span class="m">9</span>.7
+
+tests/test_multiple_browsers.py:62: <span class="nv">AssertionError</span>
+<span class="o">==================================</span> warnings <span class="nv">summary</span> <span class="o">==================================</span>
+tests/test_multiple_browsers.py: <span class="m">14</span> warnings
+  /Users/yaomeng/.local/share/virtualenvs/pytest-pyppeteer-KPzLwmKN/lib/python3.8/site-packages/pyee/_compat.py:35: DeprecationWarning: pyee.EventEmitter is deprecated and will be removed in a future major version<span class="p">;</span> you should instead use either pyee.AsyncIOEventEmitter, pyee.TwistedEventEmitter, pyee.ExecutorEventEmitter, pyee.TrioEventEmitter, or pyee.BaseEventEmitter.
+    warn<span class="o">(</span>DeprecationWarning<span class="o">(</span>
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+<span class="o">==============================</span> short <span class="nb">test</span> summary <span class="nv">info</span> <span class="o">===============================</span>
+FAILED tests/test_multiple_browsers.py::test_multiple_browsers - AssertionError: as...
+<span class="m">1</span> failed, <span class="m">14</span> warnings in <span class="m">17</span>.58s
+</pre></div>
+</div>
+<img alt="multiple_browsers" class="align-left" src="_images/multiple_browsers.gif" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Yao Meng
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

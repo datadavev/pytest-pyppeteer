@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>errors module &mdash; pytest-pyppeteer latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="hooks module" href="hooks.html" />
+    <link rel="prev" title="API Reference" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> pytest-pyppeteer
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hooks.html">hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">models module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugin.html">plugin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pytest-pyppeteer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">API Reference</a> &raquo;</li>
+        
+      <li>errors module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/errors.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-errors">
+<span id="errors-module"></span><h1>errors module<a class="headerlink" href="#module-errors" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="errors.ErrorMixin">
+<em class="property">class </em><code class="sig-name descname">ErrorMixin</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/errors.html#ErrorMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#errors.ErrorMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The mixin for base exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>Any</em>) – content variables.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="errors.ErrorMixin.code">
+<code class="sig-name descname">code</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#errors.ErrorMixin.code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type identification code.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="errors.ErrorMixin.msg_template">
+<code class="sig-name descname">msg_template</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#errors.ErrorMixin.msg_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error message template.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="errors.Error">
+<em class="property">exception </em><code class="sig-name descname">Error</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/errors.html#Error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#errors.Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#errors.ErrorMixin" title="errors.ErrorMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">errors.ErrorMixin</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Base-class for all exceptions raised by this plugin.</p>
+<dl class="py attribute">
+<dt id="errors.Error.code">
+<code class="sig-name descname">code</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#errors.Error.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="errors.Error.msg_template">
+<code class="sig-name descname">msg_template</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#errors.Error.msg_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="errors.PathError">
+<em class="property">exception </em><code class="sig-name descname">PathError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/errors.html#PathError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#errors.PathError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#errors.Error" title="errors.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">errors.Error</span></code></a></p>
+<p>The base-class for all path-related exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – path string.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="errors.PathError.code">
+<code class="sig-name descname">code</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#errors.PathError.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="errors.PathError.msg_template">
+<code class="sig-name descname">msg_template</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#errors.PathError.msg_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="errors.PathNotAExecutableError">
+<em class="property">exception </em><code class="sig-name descname">PathNotAExecutableError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/errors.html#PathNotAExecutableError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#errors.PathNotAExecutableError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#errors.PathError" title="errors.PathError"><code class="xref py py-class docutils literal notranslate"><span class="pre">errors.PathError</span></code></a></p>
+<dl class="py attribute">
+<dt id="errors.PathNotAExecutableError.code">
+<code class="sig-name descname">code</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'file.not_a_executable'</em><a class="headerlink" href="#errors.PathNotAExecutableError.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="errors.PathNotAExecutableError.msg_template">
+<code class="sig-name descname">msg_template</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'path &quot;{path}&quot; does not point to a executable file'</em><a class="headerlink" href="#errors.PathNotAExecutableError.msg_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="errors.LocatorError">
+<em class="property">exception </em><code class="sig-name descname">LocatorError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">locator</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/errors.html#LocatorError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#errors.LocatorError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#errors.Error" title="errors.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">errors.Error</span></code></a></p>
+<p>The base-class for all locator-related exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – locatore string.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="errors.LocatorError.code">
+<code class="sig-name descname">code</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#errors.LocatorError.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="errors.LocatorError.msg_template">
+<code class="sig-name descname">msg_template</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#errors.LocatorError.msg_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="errors.LocatorNotAValidSelectorOrXPathError">
+<em class="property">exception </em><code class="sig-name descname">LocatorNotAValidSelectorOrXPathError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">locator</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/errors.html#LocatorNotAValidSelectorOrXPathError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#errors.LocatorNotAValidSelectorOrXPathError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#errors.LocatorError" title="errors.LocatorError"><code class="xref py py-class docutils literal notranslate"><span class="pre">errors.LocatorError</span></code></a></p>
+<dl class="py attribute">
+<dt id="errors.LocatorNotAValidSelectorOrXPathError.code">
+<code class="sig-name descname">code</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'locator.not_a_valid_selector_or_xpath'</em><a class="headerlink" href="#errors.LocatorNotAValidSelectorOrXPathError.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="errors.LocatorNotAValidSelectorOrXPathError.msg_template">
+<code class="sig-name descname">msg_template</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'locator &quot;{locator}&quot; is not a valid selector or xpath string.'</em><a class="headerlink" href="#errors.LocatorNotAValidSelectorOrXPathError.msg_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="errors.ElementError">
+<em class="property">exception </em><code class="sig-name descname">ElementError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">locator</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/errors.html#ElementError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#errors.ElementError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#errors.Error" title="errors.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">errors.Error</span></code></a></p>
+<p>The base-class for all element-related exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>locator</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – element locator string.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="errors.ElementError.code">
+<code class="sig-name descname">code</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#errors.ElementError.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="errors.ElementError.msg_template">
+<code class="sig-name descname">msg_template</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#errors.ElementError.msg_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="errors.ElementNotExistError">
+<em class="property">exception </em><code class="sig-name descname">ElementNotExistError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">locator</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/errors.html#ElementNotExistError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#errors.ElementNotExistError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#errors.ElementError" title="errors.ElementError"><code class="xref py py-class docutils literal notranslate"><span class="pre">errors.ElementError</span></code></a></p>
+<dl class="py attribute">
+<dt id="errors.ElementNotExistError.code">
+<code class="sig-name descname">code</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'element.not_exist'</em><a class="headerlink" href="#errors.ElementNotExistError.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="errors.ElementNotExistError.msg_template">
+<code class="sig-name descname">msg_template</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'Element &quot;{locator}&quot; not exist.'</em><a class="headerlink" href="#errors.ElementNotExistError.msg_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="errors.ElementTimeoutError">
+<em class="property">exception </em><code class="sig-name descname">ElementTimeoutError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">locator</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">timeout</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="n">action</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span> <span class="o">=</span> <span class="default_value">'appear'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/errors.html#ElementTimeoutError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#errors.ElementTimeoutError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#errors.ElementError" title="errors.ElementError"><code class="xref py py-class docutils literal notranslate"><span class="pre">errors.ElementError</span></code></a></p>
+<dl class="py attribute">
+<dt id="errors.ElementTimeoutError.code">
+<code class="sig-name descname">code</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'element.timeout'</em><a class="headerlink" href="#errors.ElementTimeoutError.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="errors.ElementTimeoutError.msg_template">
+<code class="sig-name descname">msg_template</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'Wait for element &quot;{locator}&quot; to {action} failed: timeout {timeout}ms exceeds.'</em><a class="headerlink" href="#errors.ElementTimeoutError.msg_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hooks.html" class="btn btn-neutral float-right" title="hooks module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Yao Meng
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

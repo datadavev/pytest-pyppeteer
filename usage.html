@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage &mdash; pytest-pyppeteer latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Advanced Usage" href="advanced.html" />
+    <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> pytest-pyppeteer
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-options">Command line options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#executable-path"><code class="docutils literal notranslate"><span class="pre">--executable-path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#headless"><code class="docutils literal notranslate"><span class="pre">--headless</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#args"><code class="docutils literal notranslate"><span class="pre">--args</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#window-size"><code class="docutils literal notranslate"><span class="pre">--window-size</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#no-matter-selector-or-xpath">No matter selector or xpath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#options-marker"><code class="docutils literal notranslate"><span class="pre">options</span></code> marker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pytest-pyppeteer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="command-line-options">
+<h2>Command line options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="executable-path">
+<h3><code class="docutils literal notranslate"><span class="pre">--executable-path</span></code><a class="headerlink" href="#executable-path" title="Permalink to this headline">¶</a></h3>
+<p>You can specify the path to a Chromium or Chrome executable. otherwise
+pytest-pyppeteer will use the default installation location of Chrome
+in current platform, but now only support <code class="docutils literal notranslate"><span class="pre">win64</span></code>, <code class="docutils literal notranslate"><span class="pre">win32</span></code> and
+<code class="docutils literal notranslate"><span class="pre">mac</span></code> platform.</p>
+<p>For other platforms, pyppeteer will downloads the recent version of
+Chromium when called first time. If you don’t prefer this behavior,
+you can specify an exact path by override this fixture:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">executable_path</span><span class="p">(</span><span class="n">executable_path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">executable_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;path/to/Chrome/or/Chromium&quot;</span>
+    <span class="k">return</span> <span class="n">executable_path</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default installation location of Chrome in different platform:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">win64</span></code>: C:Program FilesGoogleChromeApplicationchrome.exe</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">win32</span></code>: C:Program Files (x86)GoogleChromeApplicationchrome.exe</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mac</span></code>: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="headless">
+<h3><code class="docutils literal notranslate"><span class="pre">--headless</span></code><a class="headerlink" href="#headless" title="Permalink to this headline">¶</a></h3>
+<p>Run browser in headless mode.</p>
+</div>
+<div class="section" id="args">
+<h3><code class="docutils literal notranslate"><span class="pre">--args</span></code><a class="headerlink" href="#args" title="Permalink to this headline">¶</a></h3>
+<p>Additional args to pass to the browser instance.</p>
+<p>For example, specify a proxy:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pytest --args proxy-server <span class="s2">&quot;localhost:5555,direct://&quot;</span> --args proxy-bypass-list <span class="s2">&quot;192.0.0.1/8;10.0.0.1/8&quot;</span>
+</pre></div>
+</div>
+<p>Or by override the <code class="docutils literal notranslate"><span class="pre">args</span></code> fixture:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">args</span> <span class="o">+</span> <span class="p">[</span>
+        <span class="s2">&quot;--proxy-server=localhost:5555,direct://&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--proxy-bypass-list=192.0.0.1/8;10.0.0.1/8&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="window-size">
+<h3><code class="docutils literal notranslate"><span class="pre">--window-size</span></code><a class="headerlink" href="#window-size" title="Permalink to this headline">¶</a></h3>
+<p>The default browser size is 800*600, you can use this option to change this behavior:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pytest --window-size <span class="m">1200</span> <span class="m">800</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--window-size</span> <span class="pre">0</span> <span class="pre">0</span></code> means to starts the browser maximized.</p>
+</div>
+</div>
+<div class="section" id="no-matter-selector-or-xpath">
+<h2>No matter selector or xpath<a class="headerlink" href="#no-matter-selector-or-xpath" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pyppeteer</span></code> fixture provide a <code class="docutils literal notranslate"><span class="pre">pytest_pyppeteer.models.Browser</span></code> instance, its
+usage is almost the same as <code class="docutils literal notranslate"><span class="pre">pyppeteer.browser.Browser</span></code>, except that it provides
+a new instance method: <code class="docutils literal notranslate"><span class="pre">new_page()</span></code>, which is similar to <code class="docutils literal notranslate"><span class="pre">newPage()</span></code>, but it
+returns a <code class="docutils literal notranslate"><span class="pre">pytest_pyppeteer.models.Page</span></code> instead of <code class="docutils literal notranslate"><span class="pre">pyppeteer.page.Page</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pytest_pyppeteer.models.Page</span></code>’s usage is also the same as <code class="docutils literal notranslate"><span class="pre">pyppeteer.page.Page</span></code>,
+but it provides some new instance methods, and override some methods. For example,
+you can query an element by selector or xpath in just same method <code class="docutils literal notranslate"><span class="pre">query_locator</span></code>
+instead of original <code class="docutils literal notranslate"><span class="pre">querySelector</span></code> and <code class="docutils literal notranslate"><span class="pre">xpath</span></code>.</p>
+<p>You can also get an original <code class="docutils literal notranslate"><span class="pre">Page</span></code> by <code class="docutils literal notranslate"><span class="pre">pyppeteer.newPage()</span></code>.</p>
+</div>
+<div class="section" id="options-marker">
+<h2><code class="docutils literal notranslate"><span class="pre">options</span></code> marker<a class="headerlink" href="#options-marker" title="Permalink to this headline">¶</a></h2>
+<p>You can override some command line options in the specified test.</p>
+<p>For example, auto-open a DevTools panel:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">devtools</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">test_marker</span><span class="p">(</span><span class="n">pyppeteer</span><span class="p">):</span>
+    <span class="k">await</span> <span class="n">pyppeteer</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="options_marker" class="align-left" src="_images/options_marker.gif" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="advanced.html" class="btn btn-neutral float-right" title="Advanced Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Yao Meng
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
