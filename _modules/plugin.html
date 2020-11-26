@@ -354,6 +354,10 @@
         <span class="n">nargs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;800&quot;</span><span class="p">,</span> <span class="s2">&quot;600&quot;</span><span class="p">],</span>
         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;set the initial browser window size.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">group</span><span class="o">.</span><span class="n">addoption</span><span class="p">(</span>
+        <span class="s2">&quot;--slow&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;slow down the operate in milliseconds.&quot;</span>
     <span class="p">)</span></div>
 
 
@@ -455,6 +459,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">headless</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">pytestconfig</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;--headless&quot;</span><span class="p">)</span>
     <span class="n">width</span><span class="p">,</span> <span class="n">hight</span> <span class="o">=</span> <span class="n">pytestconfig</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;--window-size&quot;</span><span class="p">)</span>
+    <span class="n">slow</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">pytestconfig</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;--slow&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">width</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span> <span class="ow">and</span> <span class="n">hight</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">current_platform</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span>
             <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--start-fullscreen&quot;</span><span class="p">)</span>
@@ -462,7 +467,9 @@
             <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--start-maximized&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--window-size=</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">hight</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">Options</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">executablePath</span><span class="o">=</span><span class="n">executable_path</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">headless</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Options</span><span class="p">(</span>
+        <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">executablePath</span><span class="o">=</span><span class="n">executable_path</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">headless</span><span class="p">,</span> <span class="n">slowMo</span><span class="o">=</span><span class="n">slow</span>
+    <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="options"><a class="viewcode-back" href="../plugin.html#plugin.options">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
